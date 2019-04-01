@@ -13,9 +13,7 @@ Each session logged into database and daemon output.
 
 ## Install
 
-In source directory:
-
-`pip3 install -U .`
+`pip3 install -U https://github.com/Snawoot/ssh-honeypot/archive/master.zip`
 
 Also you may install application into virtual env if you like.
 
