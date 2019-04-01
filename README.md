@@ -1,8 +1,12 @@
 # ssh-honeypot
 
-Special task SSH honeypot. Collects used SSH passwords and issued commands into SQLite3 database.
+Special task SSH honeypot. Collects used SSH passwords and issued commands into SQLite3 database (`-D`). All unknown commands answered with banner from specified text file (`-B`).
 
-## Requirements
+Initially server does not accepts any login and password, but with every attempt there is preconfigured probability (`-P`) of accepting password and granting login. Accepted login-password pairs stored into database and considered valid for some time (`-T`). All public key authorizations are accepted.
+
+Each session logged into database and daemon output.
+
+## System Requirements
 
 * Python 3.5.3+
 * sqlite3 3.24.0+ (on Debian 9 use command `apt install -t stretch-backports sqlite3`)
@@ -11,7 +15,9 @@ Special task SSH honeypot. Collects used SSH passwords and issued commands into 
 
 In source directory:
 
-`pip3 install .`
+`pip3 install -U .`
+
+Also you may install application into virtual env if you like.
 
 ## Running
 
