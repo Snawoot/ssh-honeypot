@@ -68,8 +68,10 @@ permitted by applicable law.
         return True
 
     def validate_public_key(self, username, key):
-        self._logger.warning('Attempt: username = %s, key = %s',
-                             repr(username), repr(key.get_fingerprint()))
+        key_str = repr(key.export_public_key('openssh').rstrip().decode('ascii'))
+        self._logger.warning('Attempt: username = %s, key = %s, fp = %s',
+                             repr(username), key_str,
+                             repr(key.get_fingerprint()))
         return True
 
     async def validate_password(self, username, password):
