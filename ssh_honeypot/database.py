@@ -11,7 +11,7 @@ class UserDatabase:
 
     async def prepare(self):
         queries = [
-        "PRAGMA journal_mode=WAL;",
+        "PRAGMA journal_mode=WAL",
         "create table if not exists user (username text, password text, created_at integer)",
         "create unique index if not exists idx_user_main on user (username, password)",
         "create index if not exists idx_user_time on user (created_at)",
@@ -30,7 +30,7 @@ class UserDatabase:
     async def add_user(self, login, password):
         ts = int(time.time())
         async with aiosqlite.connect(self._filename) as db:
-            await db.execute("PRAGMA synchronous=NORMAL;")
+            await db.execute("PRAGMA synchronous=NORMAL")
             await db.execute('insert into user (username, password, created_at)'
                              'values (?, ?, ?) on conflict(username, password) '
                              'do update set created_at = ?',
@@ -47,7 +47,7 @@ class UserDatabase:
 
     async def count_credentials(self, login, password):
         async with aiosqlite.connect(self._filename) as db:
-            await db.execute("PRAGMA synchronous=NORMAL;")
+            await db.execute("PRAGMA synchronous=NORMAL")
             await db.execute('insert into cred_usage (username, password, count) '
                              'values (?, ?, ?) on conflict(username, password) '
                              'do update set count = count + 1',
@@ -56,7 +56,7 @@ class UserDatabase:
 
     async def log_command(self, login, session, ts, command, single):
         async with aiosqlite.connect(self._filename) as db:
-            await db.execute("PRAGMA synchronous=NORMAL;")
+            await db.execute("PRAGMA synchronous=NORMAL")
             await db.execute('insert into command (username, session, ts, '
                              'command, single) values (?, ?, ?, ?, ?)',
                              (login, session.bytes, ts, command, single))
