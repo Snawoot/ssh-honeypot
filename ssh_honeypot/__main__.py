@@ -4,6 +4,7 @@ import argparse
 import asyncio
 import signal
 import logging
+import os
 from functools import partial
 
 from .server import HoneypotServer
