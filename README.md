@@ -17,6 +17,8 @@ Each session logged into database and daemon output.
 
 Also you may install application into virtual env if you like.
 
+Alternatively, you may run application with docker.
+
 ## Running
 
 You have to generate SSH server keys first. You may use `make keys` Makefile target from project directory.
@@ -58,3 +60,19 @@ listen options:
 ```bash
 ssh-honeypot -v info -B /var/lib/ssh-honeypot/message.txt -k /var/lib/ssh-honeypot/ssh_dsa_host_key /var/lib/ssh-honeypot/ssh_ecdsa_host_key /var/lib/ssh-honeypot/ssh_rsa_host_key -D /var/lib/ssh-honeypot/ssh_users -b '::#22' '0.0.0.0#22' -P 0.2
 ```
+
+### Docker
+
+Run:
+
+```bash
+docker run -v ~/sshhp_data:/srv/data \
+           -p 8022:8022 \
+           -it yarmak/ssh-honeypot \
+           -k /srv/data/ssh_dsa_host_key /srv/data/ssh_rsa_host_key /srv/data/ssh_ecdsa_host_key \
+           -B /srv/data/message.txt \
+           -D /srv/data/ssh_honeypot.db \
+           -b 0.0.0.0#8022
+```
+
+and you'll have application up and running on port 8022 with database in your `~/sshhp_data`.
